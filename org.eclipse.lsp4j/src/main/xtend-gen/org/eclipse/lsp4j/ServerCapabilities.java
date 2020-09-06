@@ -35,6 +35,7 @@ import org.eclipse.lsp4j.StaticRegistrationOptions;
 import org.eclipse.lsp4j.TextDocumentSyncKind;
 import org.eclipse.lsp4j.TextDocumentSyncOptions;
 import org.eclipse.lsp4j.WorkspaceServerCapabilities;
+import org.eclipse.lsp4j.WorkspaceSymbolOptions;
 import org.eclipse.lsp4j.jsonrpc.json.adapters.JsonElementTypeAdapter;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.xtext.xbase.lib.Pure;
@@ -100,7 +101,7 @@ public class ServerCapabilities {
   /**
    * The server provides workspace symbol support.
    */
-  private Boolean workspaceSymbolProvider;
+  private Either<Boolean, WorkspaceSymbolOptions> workspaceSymbolProvider;
   
   /**
    * The server provides code actions. The `CodeActionOptions` return type is only
@@ -499,15 +500,31 @@ public class ServerCapabilities {
    * The server provides workspace symbol support.
    */
   @Pure
-  public Boolean getWorkspaceSymbolProvider() {
+  public Either<Boolean, WorkspaceSymbolOptions> getWorkspaceSymbolProvider() {
     return this.workspaceSymbolProvider;
   }
   
   /**
    * The server provides workspace symbol support.
    */
-  public void setWorkspaceSymbolProvider(final Boolean workspaceSymbolProvider) {
+  public void setWorkspaceSymbolProvider(final Either<Boolean, WorkspaceSymbolOptions> workspaceSymbolProvider) {
     this.workspaceSymbolProvider = workspaceSymbolProvider;
+  }
+  
+  public void setWorkspaceSymbolProvider(final Boolean workspaceSymbolProvider) {
+    if (workspaceSymbolProvider == null) {
+      this.workspaceSymbolProvider = null;
+      return;
+    }
+    this.workspaceSymbolProvider = Either.forLeft(workspaceSymbolProvider);
+  }
+  
+  public void setWorkspaceSymbolProvider(final WorkspaceSymbolOptions workspaceSymbolProvider) {
+    if (workspaceSymbolProvider == null) {
+      this.workspaceSymbolProvider = null;
+      return;
+    }
+    this.workspaceSymbolProvider = Either.forRight(workspaceSymbolProvider);
   }
   
   /**

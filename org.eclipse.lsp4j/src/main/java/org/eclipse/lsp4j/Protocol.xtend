@@ -3652,7 +3652,7 @@ class ServerCapabilities {
 	/**
 	 * The server provides workspace symbol support.
 	 */
-	Boolean workspaceSymbolProvider
+	Either<Boolean, WorkspaceSymbolOptions> workspaceSymbolProvider
 
 	/**
 	 * The server provides code actions. The `CodeActionOptions` return type is only
