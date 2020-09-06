@@ -17,10 +17,17 @@ import org.eclipse.lsp4j.CodeActionOptions;
 import org.eclipse.lsp4j.CodeLensOptions;
 import org.eclipse.lsp4j.ColorProviderOptions;
 import org.eclipse.lsp4j.CompletionOptions;
+import org.eclipse.lsp4j.DefinitionOptions;
+import org.eclipse.lsp4j.DocumentFormattingOptions;
+import org.eclipse.lsp4j.DocumentHighlightOptions;
 import org.eclipse.lsp4j.DocumentLinkOptions;
 import org.eclipse.lsp4j.DocumentOnTypeFormattingOptions;
+import org.eclipse.lsp4j.DocumentRangeFormattingOptions;
+import org.eclipse.lsp4j.DocumentSymbolOptions;
 import org.eclipse.lsp4j.ExecuteCommandOptions;
 import org.eclipse.lsp4j.FoldingRangeProviderOptions;
+import org.eclipse.lsp4j.HoverOptions;
+import org.eclipse.lsp4j.ReferenceOptions;
 import org.eclipse.lsp4j.RenameOptions;
 import org.eclipse.lsp4j.SemanticHighlightingServerCapabilities;
 import org.eclipse.lsp4j.SignatureHelpOptions;
@@ -44,7 +51,7 @@ public class ServerCapabilities {
   /**
    * The server provides hover support.
    */
-  private Boolean hoverProvider;
+  private Either<Boolean, HoverOptions> hoverProvider;
   
   /**
    * The server provides completion support.
@@ -59,7 +66,7 @@ public class ServerCapabilities {
   /**
    * The server provides goto definition support.
    */
-  private Boolean definitionProvider;
+  private Either<Boolean, DefinitionOptions> definitionProvider;
   
   /**
    * The server provides Goto Type Definition support.
@@ -78,17 +85,17 @@ public class ServerCapabilities {
   /**
    * The server provides find references support.
    */
-  private Boolean referencesProvider;
+  private Either<Boolean, ReferenceOptions> referencesProvider;
   
   /**
    * The server provides document highlight support.
    */
-  private Boolean documentHighlightProvider;
+  private Either<Boolean, DocumentHighlightOptions> documentHighlightProvider;
   
   /**
    * The server provides document symbol support.
    */
-  private Boolean documentSymbolProvider;
+  private Either<Boolean, DocumentSymbolOptions> documentSymbolProvider;
   
   /**
    * The server provides workspace symbol support.
@@ -110,12 +117,12 @@ public class ServerCapabilities {
   /**
    * The server provides document formatting.
    */
-  private Boolean documentFormattingProvider;
+  private Either<Boolean, DocumentFormattingOptions> documentFormattingProvider;
   
   /**
    * The server provides document range formatting.
    */
-  private Boolean documentRangeFormattingProvider;
+  private Either<Boolean, DocumentRangeFormattingOptions> documentRangeFormattingProvider;
   
   /**
    * The server provides document formatting on typing.
@@ -237,15 +244,31 @@ public class ServerCapabilities {
    * The server provides hover support.
    */
   @Pure
-  public Boolean getHoverProvider() {
+  public Either<Boolean, HoverOptions> getHoverProvider() {
     return this.hoverProvider;
   }
   
   /**
    * The server provides hover support.
    */
-  public void setHoverProvider(final Boolean hoverProvider) {
+  public void setHoverProvider(final Either<Boolean, HoverOptions> hoverProvider) {
     this.hoverProvider = hoverProvider;
+  }
+  
+  public void setHoverProvider(final Boolean hoverProvider) {
+    if (hoverProvider == null) {
+      this.hoverProvider = null;
+      return;
+    }
+    this.hoverProvider = Either.forLeft(hoverProvider);
+  }
+  
+  public void setHoverProvider(final HoverOptions hoverProvider) {
+    if (hoverProvider == null) {
+      this.hoverProvider = null;
+      return;
+    }
+    this.hoverProvider = Either.forRight(hoverProvider);
   }
   
   /**
@@ -282,15 +305,31 @@ public class ServerCapabilities {
    * The server provides goto definition support.
    */
   @Pure
-  public Boolean getDefinitionProvider() {
+  public Either<Boolean, DefinitionOptions> getDefinitionProvider() {
     return this.definitionProvider;
   }
   
   /**
    * The server provides goto definition support.
    */
-  public void setDefinitionProvider(final Boolean definitionProvider) {
+  public void setDefinitionProvider(final Either<Boolean, DefinitionOptions> definitionProvider) {
     this.definitionProvider = definitionProvider;
+  }
+  
+  public void setDefinitionProvider(final Boolean definitionProvider) {
+    if (definitionProvider == null) {
+      this.definitionProvider = null;
+      return;
+    }
+    this.definitionProvider = Either.forLeft(definitionProvider);
+  }
+  
+  public void setDefinitionProvider(final DefinitionOptions definitionProvider) {
+    if (definitionProvider == null) {
+      this.definitionProvider = null;
+      return;
+    }
+    this.definitionProvider = Either.forRight(definitionProvider);
   }
   
   /**
@@ -367,45 +406,93 @@ public class ServerCapabilities {
    * The server provides find references support.
    */
   @Pure
-  public Boolean getReferencesProvider() {
+  public Either<Boolean, ReferenceOptions> getReferencesProvider() {
     return this.referencesProvider;
   }
   
   /**
    * The server provides find references support.
    */
-  public void setReferencesProvider(final Boolean referencesProvider) {
+  public void setReferencesProvider(final Either<Boolean, ReferenceOptions> referencesProvider) {
     this.referencesProvider = referencesProvider;
+  }
+  
+  public void setReferencesProvider(final Boolean referencesProvider) {
+    if (referencesProvider == null) {
+      this.referencesProvider = null;
+      return;
+    }
+    this.referencesProvider = Either.forLeft(referencesProvider);
+  }
+  
+  public void setReferencesProvider(final ReferenceOptions referencesProvider) {
+    if (referencesProvider == null) {
+      this.referencesProvider = null;
+      return;
+    }
+    this.referencesProvider = Either.forRight(referencesProvider);
   }
   
   /**
    * The server provides document highlight support.
    */
   @Pure
-  public Boolean getDocumentHighlightProvider() {
+  public Either<Boolean, DocumentHighlightOptions> getDocumentHighlightProvider() {
     return this.documentHighlightProvider;
   }
   
   /**
    * The server provides document highlight support.
    */
-  public void setDocumentHighlightProvider(final Boolean documentHighlightProvider) {
+  public void setDocumentHighlightProvider(final Either<Boolean, DocumentHighlightOptions> documentHighlightProvider) {
     this.documentHighlightProvider = documentHighlightProvider;
+  }
+  
+  public void setDocumentHighlightProvider(final Boolean documentHighlightProvider) {
+    if (documentHighlightProvider == null) {
+      this.documentHighlightProvider = null;
+      return;
+    }
+    this.documentHighlightProvider = Either.forLeft(documentHighlightProvider);
+  }
+  
+  public void setDocumentHighlightProvider(final DocumentHighlightOptions documentHighlightProvider) {
+    if (documentHighlightProvider == null) {
+      this.documentHighlightProvider = null;
+      return;
+    }
+    this.documentHighlightProvider = Either.forRight(documentHighlightProvider);
   }
   
   /**
    * The server provides document symbol support.
    */
   @Pure
-  public Boolean getDocumentSymbolProvider() {
+  public Either<Boolean, DocumentSymbolOptions> getDocumentSymbolProvider() {
     return this.documentSymbolProvider;
   }
   
   /**
    * The server provides document symbol support.
    */
-  public void setDocumentSymbolProvider(final Boolean documentSymbolProvider) {
+  public void setDocumentSymbolProvider(final Either<Boolean, DocumentSymbolOptions> documentSymbolProvider) {
     this.documentSymbolProvider = documentSymbolProvider;
+  }
+  
+  public void setDocumentSymbolProvider(final Boolean documentSymbolProvider) {
+    if (documentSymbolProvider == null) {
+      this.documentSymbolProvider = null;
+      return;
+    }
+    this.documentSymbolProvider = Either.forLeft(documentSymbolProvider);
+  }
+  
+  public void setDocumentSymbolProvider(final DocumentSymbolOptions documentSymbolProvider) {
+    if (documentSymbolProvider == null) {
+      this.documentSymbolProvider = null;
+      return;
+    }
+    this.documentSymbolProvider = Either.forRight(documentSymbolProvider);
   }
   
   /**
@@ -477,30 +564,62 @@ public class ServerCapabilities {
    * The server provides document formatting.
    */
   @Pure
-  public Boolean getDocumentFormattingProvider() {
+  public Either<Boolean, DocumentFormattingOptions> getDocumentFormattingProvider() {
     return this.documentFormattingProvider;
   }
   
   /**
    * The server provides document formatting.
    */
-  public void setDocumentFormattingProvider(final Boolean documentFormattingProvider) {
+  public void setDocumentFormattingProvider(final Either<Boolean, DocumentFormattingOptions> documentFormattingProvider) {
     this.documentFormattingProvider = documentFormattingProvider;
+  }
+  
+  public void setDocumentFormattingProvider(final Boolean documentFormattingProvider) {
+    if (documentFormattingProvider == null) {
+      this.documentFormattingProvider = null;
+      return;
+    }
+    this.documentFormattingProvider = Either.forLeft(documentFormattingProvider);
+  }
+  
+  public void setDocumentFormattingProvider(final DocumentFormattingOptions documentFormattingProvider) {
+    if (documentFormattingProvider == null) {
+      this.documentFormattingProvider = null;
+      return;
+    }
+    this.documentFormattingProvider = Either.forRight(documentFormattingProvider);
   }
   
   /**
    * The server provides document range formatting.
    */
   @Pure
-  public Boolean getDocumentRangeFormattingProvider() {
+  public Either<Boolean, DocumentRangeFormattingOptions> getDocumentRangeFormattingProvider() {
     return this.documentRangeFormattingProvider;
   }
   
   /**
    * The server provides document range formatting.
    */
-  public void setDocumentRangeFormattingProvider(final Boolean documentRangeFormattingProvider) {
+  public void setDocumentRangeFormattingProvider(final Either<Boolean, DocumentRangeFormattingOptions> documentRangeFormattingProvider) {
     this.documentRangeFormattingProvider = documentRangeFormattingProvider;
+  }
+  
+  public void setDocumentRangeFormattingProvider(final Boolean documentRangeFormattingProvider) {
+    if (documentRangeFormattingProvider == null) {
+      this.documentRangeFormattingProvider = null;
+      return;
+    }
+    this.documentRangeFormattingProvider = Either.forLeft(documentRangeFormattingProvider);
+  }
+  
+  public void setDocumentRangeFormattingProvider(final DocumentRangeFormattingOptions documentRangeFormattingProvider) {
+    if (documentRangeFormattingProvider == null) {
+      this.documentRangeFormattingProvider = null;
+      return;
+    }
+    this.documentRangeFormattingProvider = Either.forRight(documentRangeFormattingProvider);
   }
   
   /**

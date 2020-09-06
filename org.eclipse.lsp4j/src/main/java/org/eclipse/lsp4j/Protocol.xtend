@@ -3512,6 +3512,14 @@ class ReferenceOptions extends AbstractWorkDoneProgressOptions {
 }
 
 @JsonRpcData
+class DocumentFormattingOptions extends AbstractWorkDoneProgressOptions {
+}
+
+@JsonRpcData
+class DocumentRangeFormattingOptions extends AbstractWorkDoneProgressOptions {
+}
+
+@JsonRpcData
 class ReferenceRegistrationOptions extends AbstractTextDocumentRegistrationAndWorkDoneProgressOptions {
 }
 
@@ -3595,7 +3603,7 @@ class ServerCapabilities {
 	/**
 	 * The server provides hover support.
 	 */
-	Boolean hoverProvider
+	Either<Boolean, HoverOptions> hoverProvider
 
 	/**
 	 * The server provides completion support.
@@ -3610,7 +3618,7 @@ class ServerCapabilities {
 	/**
 	 * The server provides goto definition support.
 	 */
-	Boolean definitionProvider
+	Either<Boolean, DefinitionOptions> definitionProvider
 
 	/**
 	 * The server provides Goto Type Definition support.
@@ -3629,17 +3637,17 @@ class ServerCapabilities {
 	/**
 	 * The server provides find references support.
 	 */
-	Boolean referencesProvider
+	Either<Boolean, ReferenceOptions> referencesProvider
 
 	/**
 	 * The server provides document highlight support.
 	 */
-	Boolean documentHighlightProvider
+	Either<Boolean, DocumentHighlightOptions> documentHighlightProvider
 
 	/**
 	 * The server provides document symbol support.
 	 */
-	Boolean documentSymbolProvider
+	Either<Boolean, DocumentSymbolOptions> documentSymbolProvider
 
 	/**
 	 * The server provides workspace symbol support.
@@ -3661,12 +3669,12 @@ class ServerCapabilities {
 	/**
 	 * The server provides document formatting.
 	 */
-	Boolean documentFormattingProvider
+	Either<Boolean, DocumentFormattingOptions> documentFormattingProvider
 
 	/**
 	 * The server provides document range formatting.
 	 */
-	Boolean documentRangeFormattingProvider
+	Either<Boolean, DocumentRangeFormattingOptions> documentRangeFormattingProvider
 
 	/**
 	 * The server provides document formatting on typing.
